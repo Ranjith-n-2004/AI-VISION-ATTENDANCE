@@ -1,0 +1,5 @@
+/* Minimal stylesheet for dashboard */
+body { font-family: Arial, sans-serif; margin: 20px; background: #f7f7f7; }
+h1 { color: #2c3e50; }
+#video_feed { border-radius: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.15); }
+.container { max-width: 1100px; margin: 0 auto; }

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Visionary - Home</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-bg {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+  
+  <!-- Hero Section -->
+  <div class="hero-bg min-h-screen flex items-center justify-center px-4">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 gradient-text">
+        AI Visionary
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-300 mb-8">
+        Smart Attendance & Security Monitoring System
+      </p>
+      <p class="text-gray-400 mb-12 max-w-2xl mx-auto">
+        Real-time facial recognition with liveness detection, automated attendance tracking, 
+        and intelligent security monitoring powered by AI.
+      </p>
+      
+      <div class="flex flex-col md:flex-row gap-4 justify-center items-center">
+        <!-- React App -->
+        <a 
+          href="http://localhost:3000" 
+          target="_blank"
+          class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 inline-block"
+        >
+          ⚛️ Launch React App (Auto-Detection)
+        </a>
+        
+        <!-- HTML Version -->
+        <a 
+          href="./attendance-html.html" 
+          class="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 inline-block"
+        >
+          📱 HTML Dashboard (Classic)
+        </a>
+        
+        <!-- Backend API -->
+        <a 
+          href="http://127.0.0.1:8000/docs" 
+          target="_blank"
+          class="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 inline-block"
+        >
+          📡 API Documentation
+        </a>
+      </div>
+      
+      <!-- Features Grid -->
+      <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-gray-700">
+          <div class="text-4xl mb-3">👤</div>
+          <h3 class="text-xl font-bold mb-2 text-cyan-400">Face Recognition</h3>
+          <p class="text-gray-400 text-sm">
+            Real-time multi-face detection with bounding boxes and confidence scores
+          </p>
+        </div>
+        
+        <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-gray-700">
+          <div class="text-4xl mb-3">🎯</div>
+          <h3 class="text-xl font-bold mb-2 text-green-400">Auto-Attendance</h3>
+          <p class="text-gray-400 text-sm">
+            Automated attendance marking with liveness detection and daily CSV logs
+          </p>
+        </div>
+        
+        <div class="bg-gray-800/50 backdrop-blur-sm p-6 rounded-lg border border-gray-700">
+          <div class="text-4xl mb-3">🔒</div>
+          <h3 class="text-xl font-bold mb-2 text-purple-400">Security Monitoring</h3>
+          <p class="text-gray-400 text-sm">
+            Real-time event logging with known/unknown person detection and alerts
+          </p>
+        </div>
+      </div>
+      
+      <!-- Quick Start -->
+      <div class="mt-12 bg-gray-800/30 backdrop-blur-sm p-6 rounded-lg border border-gray-700 text-left max-w-2xl mx-auto">
+        <h3 class="text-xl font-bold mb-4 text-cyan-400">🚀 Quick Start</h3>
+        <ol class="space-y-2 text-sm text-gray-300">
+          <li>1️⃣ Add your face to dataset: <code class="bg-gray-900 px-2 py-1 rounded text-cyan-400">python capture_images.py your_name_usn</code></li>
+          <li>2️⃣ Build encodings from any dashboard (click "Build Encodings" button)</li>
+          <li>3️⃣ Start detecting! Your face will be recognized automatically</li>
+        </ol>
+      </div>
+      
+      <!-- Footer -->
+      <div class="mt-12 text-gray-500 text-sm">
+        Developed by Ranjith N 🚀 | Powered by FastAPI, React & TailwindCSS
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

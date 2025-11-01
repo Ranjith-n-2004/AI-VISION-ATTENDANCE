@@ -1,0 +1,66 @@
+aiofiles==23.1.0
+# Smart Attendance and Security System - Python dependencies
+
+# IMPORTANT INSTALL NOTES (Windows + GPU)
+# 1) On Windows you must install a CUDA-enabled PyTorch wheel that matches your GPU drivers
+#    before installing the rest of the packages. Visit https://pytorch.org/get-started/locally/
+#    and choose the appropriate CUDA version for your system.
+#
+# Example PowerShell commands (change versions to match the recommended ones on pytorch.org):
+# - CUDA 11.8 (common):
+#   pip install "torch==2.2.0+cu118" "torchvision==0.16.0+cu118" --index-url https://download.pytorch.org/whl/cu118
+# - CUDA 12.1 example:
+#   pip install "torch==2.2.0+cu121" "torchvision==0.16.0+cu121" --index-url https://download.pytorch.org/whl/cu121
+# - CPU-only (no CUDA):
+#   pip install "torch==2.2.0+cpu" "torchvision==0.16.0+cpu" --index-url https://download.pytorch.org/whl/cpu
+#
+# After installing the appropriate torch/torchvision wheel, run:
+#   pip install -r requirements.txt
+#
+# 2) dlib (required by `face_recognition`) can be difficult to build on Windows. Recommended options:
+#   - Use conda/miniconda and install dlib from conda-forge, then pip install face_recognition:
+#       conda create -n saas python=3.10 -y
+#       conda activate saas
+#       conda install -c conda-forge dlib cmake boost -y
+#       pip install face_recognition
+#   - Or find a prebuilt dlib wheel for your Python version and pip install it before installing face_recognition.
+#
+# 3) ultralytics (YOLOv8) uses torch and will use CUDA if torch is CUDA-enabled. Make sure torch is installed
+#    correctly before installing ultralytics.
+
+# Web / API
+fastapi==0.95.2
+uvicorn[standard]==0.22.0
+aiofiles==23.1.0
+Jinja2==3.1.2
+
+# Computer vision / ML
+numpy==1.26.4
+opencv-python==4.8.0.74
+Pillow==10.1.0
+imutils==0.5.4
+
+# Face recognition
+# - If you want GPU-accelerated embeddings, use facenet-pytorch (runs on CUDA via torch)
+# - `face_recognition` is supported but requires dlib (see notes above). Install dlib separately on Windows.
+face_recognition==1.3.0
+facenet-pytorch==2.5.2
+
+# YOLOv8
+ultralytics==8.0.134
+
+# Torch and torchvision: install the correct CUDA wheel first as shown above. These are left flexible
+# so you can install the platform-specific wheels before pip installing the rest.
+torch>=2.1.0
+torchvision>=0.16.0
+
+# Utilities
+pandas==2.2.2
+
+# Optional (telegram / email helpers) - not required for core functionality
+python-telegram-bot==20.6
+
+# Developer / testing
+pytest==7.3.2
+
+# End of requirements

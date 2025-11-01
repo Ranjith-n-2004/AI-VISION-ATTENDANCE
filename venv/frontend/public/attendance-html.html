@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Visionary - Smart Attendance & Security</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-out;
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .neon-border {
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3), 0 0 20px rgba(16, 185, 129, 0.2);
+    }
+    .neon-border-red {
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.3), 0 0 20px rgba(239, 68, 68, 0.2);
+    }
+  </style>
+</head>
+<body class="h-full bg-gray-900 text-white overflow-x-hidden">
+  
+  <!-- Fixed Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-800 shadow-lg">
+    <div class="container mx-auto px-4 py-4">
+      <h1 class="text-3xl md:text-4xl font-bold text-center gradient-text drop-shadow-lg">
+        🎯 AI Visionary: Smart Attendance & Security System
+      </h1>
+      <p class="text-center text-cyan-400 text-sm mt-1">HTML/CSS Version | Real-time Monitoring</p>
+    </div>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="pt-24 pb-96 min-h-screen flex flex-col items-center justify-center px-4">
+    
+    <!-- Camera Feed Container -->
+    <div class="w-full max-w-6xl mx-auto">
+      <div class="relative rounded-2xl overflow-hidden shadow-2xl neon-border">
+        <img 
+          id="video_feed" 
+          src="http://127.0.0.1:8000/video_feed" 
+          alt="Live Camera Feed" 
+          class="w-full h-auto max-h-[70vh] object-contain bg-black"
+        />
+        <div class="absolute top-4 right-4 bg-red-500/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-2">
+          <span class="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+          LIVE
+        </div>
+      </div>
+      
+      <!-- Build Encodings Control -->
+      <div class="mt-4 flex items-center justify-center gap-4 flex-wrap">
+        <button 
+          id="build_encodings_btn"
+          class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 px-6 py-2 rounded-lg font-semibold transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+        >
+          🔄 Build Encodings
+        </button>
+        <span id="build_status" class="text-cyan-400 font-semibold">Status: idle</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer Log Area -->
+  <footer class="fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-800 shadow-2xl">
+    <div class="container mx-auto px-4 py-4 max-h-80 overflow-y-auto" id="log_container">
+      <h3 class="text-lg font-bold text-cyan-400 mb-3">📋 Real-Time Detection Events</h3>
+      <div id="event_logs" class="space-y-2">
+        <!-- Dynamic logs will be inserted here -->
+        <div class="text-gray-500 text-sm text-center py-4">Waiting for detection events...</div>
+      </div>
+    </div>
+    
+    <!-- Watermark -->
+    <div class="text-right px-4 py-2 text-xs text-gray-600">
+      Developed by Ranjith N 🚀
+    </div>
+  </footer>
+
+  <script>
+    // Event log management
+    let lastEventId = 0;
+    const maxLogs = 50;
+
+    async function fetchEvents() {
+      try {
+        const res = await fetch(`http://127.0.0.1:8000/api/events?since=${lastEventId}`);
+        const data = await res.json();
+        
+        if (data.events && data.events.length > 0) {
+          const container = document.getElementById('event_logs');
+          
+          // Remove placeholder if exists
+          const placeholder = container.querySelector('.text-gray-500');
+          if (placeholder) placeholder.remove();
+          
+          data.events.forEach(event => {
+            const logDiv = document.createElement('div');
+            logDiv.className = `fade-in p-3 rounded-lg border transition-all duration-300 hover:scale-[1.02] ${
+              event.type === 'known' 
+                ? 'bg-green-900/30 border-green-500/50 neon-border' 
+                : 'bg-red-900/30 border-red-500/50 neon-border-red'
+            }`;
+            
+            logDiv.innerHTML = `
+              <div class="flex items-center justify-between flex-wrap gap-2">
+                <div class="flex items-center gap-2">
+                  <span class="text-2xl">👤</span>
+                  <span class="font-semibold ${event.type === 'known' ? 'text-green-400' : 'text-red-400'}">
+                    ${event.name}${event.usn ? ' (' + event.usn + ')' : ''}
+                  </span>
+                  <span class="text-gray-400 text-sm">${event.location || 'detected'}</span>
+                </div>
+                <div class="flex items-center gap-2 text-sm text-gray-400">
+                  <span>🕒</span>
+                  <span>${event.time}</span>
+                </div>
+              </div>
+            `;
+            
+            container.insertBefore(logDiv, container.firstChild);
+            lastEventId = Math.max(lastEventId, event.id);
+          });
+          
+          // Keep only last N logs
+          while (container.children.length > maxLogs) {
+            container.removeChild(container.lastChild);
+          }
+          
+          // Auto-scroll to show latest
+          document.getElementById('log_container').scrollTop = 0;
+        }
+      } catch (e) {
+        console.error('Failed to fetch events:', e);
+      }
+    }
+
+    // Encoding build helpers
+    async function postBuildEncodings() {
+      try {
+        const res = await fetch('http://127.0.0.1:8000/api/encodings/build', { method: 'POST' });
+        return await res.json();
+      } catch (e) {
+        console.error('Build request failed', e);
+        throw e;
+      }
+    }
+
+    async function getBuildStatus() {
+      try {
+        const res = await fetch('http://127.0.0.1:8000/api/encodings/status');
+        return await res.json();
+      } catch (e) {
+        return { state: 'error', last_error: String(e) };
+      }
+    }
+
+    let statusPoller = null;
+    function startStatusPoll() {
+      if (statusPoller) return;
+      statusPoller = setInterval(async () => {
+        const s = await getBuildStatus();
+        const el = document.getElementById('build_status');
+        el.textContent = `Status: ${s.state}` + (s.last_error ? ` — ${s.last_error}` : '');
+        if (s.state === 'success' || s.state === 'error') {
+          clearInterval(statusPoller);
+          statusPoller = null;
+        }
+      }, 1500);
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('build_encodings_btn');
+      btn.addEventListener('click', async () => {
+        try {
+          btn.disabled = true;
+          btn.classList.add('opacity-50', 'cursor-not-allowed');
+          document.getElementById('build_status').textContent = 'Status: queued';
+          await postBuildEncodings();
+          startStatusPoll();
+        } catch (e) {
+          console.error(e);
+          btn.disabled = false;
+          btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      });
+      
+      // Poll for events every 2 seconds
+      setInterval(fetchEvents, 2000);
+      fetchEvents();
+    });
+  </script>
+
+</body>
+</html>

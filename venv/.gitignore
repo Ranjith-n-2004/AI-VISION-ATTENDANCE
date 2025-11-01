@@ -1,0 +1,34 @@
+# Ignore entire venv except select app folders/files
+# This file lives inside venv/ so patterns are relative to venv/
+
+# Ignore everything by default
+*
+
+# But keep these folders and files
+!/.gitignore
+!/README.md
+!/requirements.txt
+!/backend/
+!/backend/**
+!/frontend/
+!/frontend/**
+!/config/
+!/config/**
+!/database/
+!/database/**
+
+# Also ignore generated artifacts within kept backend
+/backend/attendance.csv
+/backend/attendance_*.csv
+/backend/dataset/
+/backend/dataset/**
+/backend/encodings/
+/backend/encodings/**
+/backend/__pycache__/
+/backend/**/*.pyc
+
+# Ignore Python cache files under whitelisted config/database
+/config/**/__pycache__/
+/config/**/*.pyc
+/database/**/__pycache__/
+/database/**/*.pyc
